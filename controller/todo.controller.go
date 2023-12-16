@@ -50,5 +50,7 @@ func (h *BaseHandler) handleGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *BaseHandler) handlePost(w http.ResponseWriter, r *http.Request) {
+	var items model.TodoItemsList
 
+	result, err := h.todoRepo.Insert(items)
 }

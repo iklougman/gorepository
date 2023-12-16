@@ -3,10 +3,10 @@ package model
 import "time"
 
 type TodoItem struct {
-	Id          int    `json: "id"`
-	Task        string `json: "task"`
-	Completed   bool   `json: "completed"`
-	CreateAt    time.Time
+	Id          int       `bson: "_id,omitempty"`
+	Task        string    `bson: "task,omitempty"`
+	Completed   bool      `bson: "completed,omitempty"`
+	CreateAt    time.Time `bson: "createdAt,omitempty"`
 	CompletedAt time.Time
 }
 
@@ -14,6 +14,6 @@ type TodoItemsList []TodoItem
 
 type TodoRepository interface {
 	FindAll() (*TodoItemsList, error)
-	// Save(item *TodoItem) error
+	Insert(item *TodoItemsList) error
 	// Update(Id int) error
 }

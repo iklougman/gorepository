@@ -37,6 +37,15 @@ func (r *TodoRepo) FindAll() ([]TodoItem, error) {
 	return items, nil
 }
 
-func (r *TodoRepo) Insert() ([]TodoItem, error) {
-	r.mongoCollection.InsertMany(context.Background(), )
+func (r *TodoRepo) Insert(items []TodoItem) (*mongo.InsertManyResult, error) {
+	entries := make([]interface{}, len(items))
+	for i, v := range items {
+		entries[i] = v
+	}
+	result, err := r.mongoCollection.InsertMany(context.Background(), entries)
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
 }
